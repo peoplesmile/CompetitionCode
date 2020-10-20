@@ -58,9 +58,10 @@ def NaN_process(df,df_name):
         df['townsign'] = df['townsign'].astype('category')
         # regtype,共3个值，无缺省值，转换为catogory类型
         df['regtype'] = df['regtype'].astype('category')
-        # TODO empnum 从业人数,使用平均值代替NAN，转换为int类型
-        df.fillna(value={'empnum': int(df['empnum'].mean())}, inplace=True)
+        # TODO empnum 从业人数,使用-1代替NAN，转换为int类型,有异常值，极值大，不能用平均数填充
+        df.fillna(value={'empnum': int(-1)}, inplace=True)
         df['empnum'] = df['empnum'].astype('int')
+
         # compform 组织形式,共3个值，转换为category类型
         df.fillna(value={'compform': -1}, inplace=True)
         df['compform'] = df['compform'].astype('int')
@@ -82,10 +83,10 @@ def NaN_process(df,df_name):
             axis=1,
             inplace=True
         )
-        # regcap，float，有缺省值，用均值代替
-        df.fillna(value={'regcap': df['regcap'].mean()}, inplace=True)
-        # reccap，float，有缺省值，用均值代替
-        df.fillna(value={'reccap': df['reccap'].mean()}, inplace=True)
+        # TODO regcap，float，使用-1代替NAN，有异常值，极值大，不能用平均数填充
+        df.fillna(value={'regcap': -1}, inplace=True)
+        # TODO reccap，float，有缺省值，使用-1代替NAN，有异常值，极值大，不能用平均数填充
+        df.fillna(value={'reccap': -1}, inplace=True)
         # enttypegb,共53个值，无缺省值，转换为category类型
         df.fillna(value={'enttypegb': -1}, inplace=True)
         df['enttypegb'] = df['enttypegb'].astype('int')
